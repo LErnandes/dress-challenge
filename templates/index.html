@@ -1,0 +1,70 @@
+{% load static %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static '/style.css' %}">
+
+<div class="container">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-6">
+            <form>
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Insira o nome">
+                    <small id="nameHelp" class="form-text text-muted">Coloque o nome para ver dados do usuário.</small>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if customers is not None%}
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                {% for field in customer_header %}
+                <th>{{field}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{customer.email}}</td>
+                <td>{{customer.first_name}}</td>
+                <td>{{customer.last_name}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if address is not None%}
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                {% for field in address_header %}
+                <th>{{field}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for i in address %}
+            <tr>
+                <td>{{i.customer}}</td>
+                <td>
+                    <ul>
+                        {% for x in i.address %}
+                            <li>{{x}}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+
+<footer>{{author}} to Dress&Go</footer>
